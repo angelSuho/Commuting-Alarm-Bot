@@ -49,8 +49,8 @@ jobs:
       - name: 도커 이미지 빌드 및 푸시
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_REPO }}/cma_bot:latest .
-          docker push ${{ secrets.DOCKER_REPO }}/cma_bot:latest
+          docker build -t ${{ secrets.DOCKER_REPO }}:latest .
+          docker push ${{ secrets.DOCKER_REPO }}:latest
           
   deploy:
     name: 원격 서버에 배포
@@ -71,9 +71,9 @@ jobs:
             echo ${{ secrets.DOCKER_HUB_PASSWORD }} | sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             sudo docker stop cma_bot || true
             sudo docker rm cma_bot || true
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/cma_bot:latest
+            sudo docker pull ${{ secrets.DOCKER_REPO }}:latest
             sudo docker run --name=cma_bot --network docker-net --restart unless-stopped \
-              -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}/cma_bot:latest
+              -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}:latest
             sudo docker image prune -f
       - name: 배포 성공 알림 발송
         uses: sarisia/actions-status-discord@v1
