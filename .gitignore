@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
+### idea ###
+.idea/
+
 ### Secret Files ###
 ## src/main/resources/*secret*.yml -> 특정 경로에 있는 secret 파일을 무시
 **/*secret*.yml
