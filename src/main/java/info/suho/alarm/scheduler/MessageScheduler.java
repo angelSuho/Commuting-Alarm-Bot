@@ -13,7 +13,6 @@ public class MessageScheduler {
     // 오전 8시 55분에 실행
     @Scheduled(cron = "0 55 8 * * *", zone = "Asia/Seoul")
     public void sendScheduledMessageMorning() {
-        System.out.println(12312);
         discordMessagingService.sendDiscordMessages(
                 "⛅출근 시간입니다! 잊지 말고 출근 체크하세요.⏰"
         );
